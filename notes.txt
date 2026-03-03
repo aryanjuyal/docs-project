@@ -1,0 +1,18 @@
+for any params from the url we can make a folder with[paramsname] forex[documentId]
+and then inside folder use in file page.tsx
+
+interface DocumentIdPageProps{
+    params:Promise<{documentId:strig}>
+
+}
+
+const DocumentIdPage=async({params}:DocumentIdPageProps)=>{
+    const {documentId}=await params;
+ 
+
+    return (
+        <div>
+        DocumentId:{documentId}</div >
+    )
+}
+
