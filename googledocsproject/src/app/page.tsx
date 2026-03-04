@@ -1,4 +1,5 @@
 import {Button} from '../components/ui/button'
+import Link from 'next/link'
 
 const home=()=>{
   return(
@@ -7,6 +8,7 @@ const home=()=>{
       <Button className='flex mx-auto mt-4' variant='outline'>
         click me 
       </Button>
+      <Link href="/documents/123"><span>click here</span></Link>
     </div>
   )
 }

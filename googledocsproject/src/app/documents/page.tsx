@@ -1,4 +1,8 @@
-const page=()=>{
-<h1> doc page </h1>
+ const docpage=()=>{
+    return(
+        <div>
+            documents page
+        </div>  
+)
 }
-export default page;
+export default docpage;
