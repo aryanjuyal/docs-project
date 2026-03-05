@@ -6,12 +6,39 @@ import { Table } from 'lucide-react'
 import { TableKit } from '@tiptap/extension-table'
 import Image from '@tiptap/extension-image'
 import ImageResize from 'tiptap-extension-resize-image'
+import Underline from '@tiptap/extension-underline'
 
-
+import {useeditorStore}  from '@/src/store/use-editor-store'
+import { set } from 'date-fns'
  
 
 export const Editor=()=>{ 
+  const   {setEditor}=useeditorStore()
     const editor = useEditor({
+      onCreate({editor}){
+setEditor(editor)
+      },
+      onDestroy(){
+setEditor(null)
+      },
+      onUpdate({editor}){
+setEditor(editor)
+      },
+         onSelectionUpdate({editor}){
+setEditor(editor)
+      },
+         onTransaction({editor}){
+setEditor(editor)
+      },
+         onFocus({editor}){
+setEditor(editor)
+      },
+         onBlur({editor}){
+setEditor(editor)
+      },
+         onContentError({editor}){
+setEditor(editor)
+      },
       editorProps:{
         attributes:{
           style:"padding-left:56px padding-right:56px",
@@ -21,7 +48,8 @@ export const Editor=()=>{
     extensions: [StarterKit,
         TableKit.configure({
         table: { resizable: true },
-      }),    
+      }), 
+      Underline,   
 TaskList, 
 Image,
 ImageResize,

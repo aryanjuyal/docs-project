@@ -11,3 +11,5 @@ editor:null,
 setEditor:(editor)=>set({editor})
 
 }))
+
+export default useeditorStore;
