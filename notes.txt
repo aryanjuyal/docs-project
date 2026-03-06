@@ -14,5 +14,11 @@ const DocumentIdPage=async({params}:DocumentIdPageProps)=>{
         <div>
         DocumentId:{documentId}</div >
     )
+
 }
 
+if we do (fldername) then what happens is for the url we donot need to give the name of the folder 
+we can directly acess files inside that folder /flename
+
+everything inside the app folder is a server component in next
+so we can not use hooks in them so we have to make them into client 

@@ -3,10 +3,12 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
 import { Table } from 'lucide-react'
+import Text from '@tiptap/extension-text'
 import { TableKit } from '@tiptap/extension-table'
 import Image from '@tiptap/extension-image'
 import ImageResize from 'tiptap-extension-resize-image'
 import Underline from '@tiptap/extension-underline'
+import { FontFamily, TextStyle } from '@tiptap/extension-text-style'
 
 import {useeditorStore}  from '@/src/store/use-editor-store'
 import { set } from 'date-fns'
@@ -49,6 +51,9 @@ setEditor(editor)
         TableKit.configure({
         table: { resizable: true },
       }), 
+      FontFamily,
+        TextStyle,
+        Text,
       Underline,   
 TaskList, 
 Image,
@@ -79,7 +84,7 @@ ImageResize,
   return(
 
     <div className='size-full overflow-x-auto bg-black px-4 print:p-0 print:bg-white print:overflow-visible'>
-      <div className='min-w-max flex justify-center w[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'> <EditorContent editor={editor} /></div> 
+      <div className='min-w-max flex justify-center w[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'> <EditorContent  editor={editor} /></div> 
     </div>
      )
 
