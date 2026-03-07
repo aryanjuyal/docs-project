@@ -1,6 +1,7 @@
 "use client"
+import{ColorResult,CirclePicker, SketchPicker}  from 'react-color'
 import { is } from 'date-fns/locale';
-import {LucideIcon,Undo2Icon,Redo2Icon,PrinterIcon,SpellCheckIcon,BoldIcon,ItalicIcon,UnderlineIcon,MessageSquarePlusIcon, ListTodoIcon, RemoveFormattingIcon, ChevronDown,ChevronDownIcon, Heading1} from 'lucide-react'
+import {LucideIcon,Undo2Icon,Redo2Icon,PrinterIcon,SpellCheckIcon,BoldIcon,ItalicIcon,UnderlineIcon,MessageSquarePlusIcon, ListTodoIcon, RemoveFormattingIcon, ChevronDown,ChevronDownIcon, Heading1,HighlighterIcon, LinkIcon } from 'lucide-react'
 import {cn} from '@/lib/utils'
 import { useeditorStore } from '@/src/store/use-editor-store';
 import {Separator}from '@/src/components/ui/separator'
@@ -10,6 +11,72 @@ interface ToolbarButtonProps{
 onClick:()=>void;
 icon:LucideIcon;
 isActive?:boolean;
+}
+
+const LinkButton=()=>{
+    const {editor}=useeditorStore()
+    const onClick=()=>{
+        const previousUrl=editor?.getAttributes('link').href
+        const url=window.prompt("URL",previousUrl)
+        if(url===null) return;
+        if(url===""){
+            editor?.chain().focus().extendMarkRange('link').unsetLink().run()
+            return;
+        }
+        editor?.chain().focus().extendMarkRange('link').setLink({href:url}).run()
+    }
+    return(
+        <ToolBarButtonn onClick={onClick} icon={LinkIcon} isActive={editor?.isActive('link') || false} />
+    )
+}
+
+const HighightColorButton=()=>{
+    const {editor}=useeditorStore()
+   const value=editor?.getAttributes('highlight').color || "#FFFF"
+    const onChange=(color:ColorResult)=>{
+editor?.chain().focus().setHighlight({color:color.hex}).run()
+    }
+    return(
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                         <button className='text-sm h-7 flex-col px-5 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80' >
+                         <HighlighterIcon className='size-4' />
+                         </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='p-0'>
+                <SketchPicker
+                color={value}
+                 onChange={onChange} />
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+    
+
+}
+
+const TextColorButton=()=>{
+    const {editor}=useeditorStore()
+    const value=editor?.getAttributes('textStyle').color
+    const onChange=(color:ColorResult)=>{
+editor?.chain().focus().setColor(color.hex).run()
+    }
+    return(
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                         <button className='text-sm h-7 flex-col px-5 min-w-7 flex items-center justify-center rounded-sm hover:bg-neutral-200/80' >
+                         <span className='text-lg'>
+A
+                         </span>
+                         <div className='h-0.5 w-full' style={{backgroundColor:value}}/>
+                         </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='p-2.5 flex flex-col gap-y-1 '>
+                <CirclePicker color={value} onChange={onChange} />
+            </DropdownMenuContent>
+        </DropdownMenu>
+    )
+    
+
 }
 
 const HeadingLevelButton=()=>{
@@ -195,8 +262,20 @@ isActive:false
 <Separator orientation="vertical" className='h-6 w-px bg-red-500' />
      {
         <HeadingLevelButton />
-        }
+        },
      
+<Separator orientation="vertical" className='h-6 w-px bg-red-500' />
+{
+    <TextColorButton />
+}
+     
+<Separator orientation="vertical" className='h-6 w-px bg-red-500' />
+{
+    <HighightColorButton />
+}
+{
+    <LinkButton />
+}
 <Separator orientation="vertical" className='h-6 w-px bg-red-500' />
  {sections[1].map((item)=>(
             <ToolBarButtonn key={item.label} {...item} />

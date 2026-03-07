@@ -9,6 +9,9 @@ import Image from '@tiptap/extension-image'
 import ImageResize from 'tiptap-extension-resize-image'
 import Underline from '@tiptap/extension-underline'
 import { FontFamily, TextStyle } from '@tiptap/extension-text-style'
+import { Color} from '@tiptap/extension-text-style'
+import Link from '@tiptap/extension-link'
+import Highlight from '@tiptap/extension-highlight'
 
 import {useeditorStore}  from '@/src/store/use-editor-store'
 import { set } from 'date-fns'
@@ -53,7 +56,17 @@ setEditor(editor)
       }), 
       FontFamily,
         TextStyle,
+        Link.configure({
+         openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+          
+        })  ,
         Text,
+        Highlight.configure({
+          multicolor: true,
+        }),
+        Color,
       Underline,   
 TaskList, 
 Image,
@@ -83,7 +96,7 @@ ImageResize,
   })
   return(
 
-    <div className='size-full overflow-x-auto bg-black px-4 print:p-0 print:bg-white print:overflow-visible'>
+    <div className='size-full overflow-x-auto bg-white px-4 print:p-0 print:bg-white print:overflow-visible'>
       <div className='min-w-max flex justify-center w[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0'> <EditorContent  editor={editor} /></div> 
     </div>
      )
